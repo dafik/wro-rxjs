@@ -16,6 +16,18 @@ export class MessageListComponent {
   constructor(db: AngularFirestore) {
     this.messagesDb = db.collection('messages', ref => ref.orderBy('timestamp', 'desc'));
     this.messages = this.messagesDb.valueChanges();
+
+
+    this.messagesDb
+      .snapshotChanges()
+      .subscribe(val => {
+
+          console.error(val);
+        },
+        val => {
+          console.error(val);
+        }
+      )
   }
 }
 

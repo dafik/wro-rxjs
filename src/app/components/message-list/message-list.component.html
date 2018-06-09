@@ -1,6 +1,6 @@
 <h5>wiadomosci</h5>
 <ul>
   <li class="text" *ngFor="let item of messages | async">
-    {{item.sender}} - {{item.body}} - {{item.timestamp}} -
+    <a (click)="del(item.id)"></a> {{item.sender}} - {{item.body}} - {{item.timestamp}} -
   </li>
 </ul>
