@@ -14,12 +14,13 @@ export class AppComponent {
 
 
   constructor(db: AngularFirestore) {
-    this.messagesDb = db.collection('messages');
-    this.messages = this.messagesDb
+    this.messagesDb = db.collection('messages', ref => ref.orderBy('timestamp'));
+    this.messages = this.messagesDb.valueChanges();
+    /*collection('items', ref => ref.where('size', '==', 'large'))
       .valueChanges()
       .pipe(
         map((x: Imessage[]) => x.sort((a: Imessage, b: Imessage) => a.timestamp - b.timestamp))
-      );
+      );*/
   }
 }
 
