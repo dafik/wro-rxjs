@@ -14,7 +14,7 @@ export class AppComponent {
 
 
   constructor(db: AngularFirestore) {
-    this.messagesDb = db.collection('messages', ref => ref.orderBy('timestamp'));
+    this.messagesDb = db.collection('messages', ref => ref.orderBy('timestamp','desc'));
     this.messages = this.messagesDb.valueChanges();
     /*collection('items', ref => ref.where('size', '==', 'large'))
       .valueChanges()
