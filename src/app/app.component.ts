@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
-import { AngularFirestore } from "angularfire2/firestore";
+import { AngularFirestore, AngularFirestoreCollection } from "angularfire2/firestore";
 import { Observable } from "rxjs/Observable";
+import { map } from "rxjs/operators";
 
 @Component({
   selector: 'app-root',
@@ -8,16 +9,22 @@ import { Observable } from "rxjs/Observable";
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'app';
-  items: Observable<any[]>;
+  messages: Observable<Imessage[]>;
+  private messagesDb: AngularFirestoreCollection<Imessage>;
+
 
   constructor(db: AngularFirestore) {
-    this.items = db.collection('messages').valueChanges();
+    this.messagesDb = db.collection('messages');
+    this.messages = this.messagesDb
+      .valueChanges()
+      .pipe(
+        map((x: Imessage[]) => x.sort((a: Imessage, b: Imessage) => a.timestamp - b.timestamp))
+      );
   }
 }
 
 interface Imessage {
-  body:string,
-  sender:string,
-  timestamp:string
+  body: string,
+  sender: string,
+  timestamp: number
 }

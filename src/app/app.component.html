@@ -1,5 +1,5 @@
 <ul>
-  <li class="text" *ngFor="let item of items | async">
+  <li class="text" *ngFor="let item of messages | async">
     {{item.sender}} - {{item.body}} - {{item.timestamp}} -
   </li>
 </ul>
