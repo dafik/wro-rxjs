@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { fromEvent } from "rxjs/observable/fromEvent";
+import { AngularFirestore } from "angularfire2/firestore";
 import { Observable } from "rxjs/Observable";
 
 @Component({
@@ -9,8 +9,15 @@ import { Observable } from "rxjs/Observable";
 })
 export class AppComponent {
   title = 'app';
+  items: Observable<any[]>;
 
-  constructor() {
-
+  constructor(db: AngularFirestore) {
+    this.items = db.collection('messages').valueChanges();
   }
+}
+
+interface Imessage {
+  body:string,
+  sender:string,
+  timestamp:string
 }
