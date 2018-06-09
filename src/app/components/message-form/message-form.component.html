@@ -1,0 +1,6 @@
+<form (submit)="add()" #frm="ngForm">
+  <input type="text" name="message" required [(ngModel)]="message">
+  <button *ngIf="frm.form.valid" type="submit" class="btn btn-primary">Dodaj</button>
+  <button *ngIf="!frm.form.valid" type="button" (click)="onInvalidClick()" class="btn btn-primary">Dodaj
+  </button>
+</form>
